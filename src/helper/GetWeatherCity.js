@@ -11,16 +11,16 @@ export const GetWeatherCity = ({ city }) => {
 
     const GetWeather = async () => {
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=acarigua&appid=750f844a271e6a0e4d5caf0107a40189`
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=edmonton&appid=750f844a271e6a0e4d5caf0107a40189`
         const response = await fetch(url);
         const data = await response.json()
-        console.log({data})
+        // console.log({data})
 
         const {main} = data;
         console.log({main});
 
         const {weather} = data;
-        console.log(weather)
+        console.log({weather})
 
         const weatherInfo = weather.map(({id, description, icon, main}) => {
             return {
@@ -30,8 +30,12 @@ export const GetWeatherCity = ({ city }) => {
                 main: main
             }
         })
+        console.log('weatherInfo', weatherInfo)
 
-        console.log( 'weatherInfo', weatherInfo )
+        const { temp, humidity, feelsLike, grnd_level} = main
+
+        console.log({ temp, feelsLike, humidity, grnd_level})
+
         setFetchedWeather( weatherInfo )
 
         console.log('fetchedWeather', fetchedWeather )
