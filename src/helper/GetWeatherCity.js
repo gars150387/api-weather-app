@@ -6,12 +6,12 @@ export const GetWeatherCity = ({ city }) => {
     const [fetchedWeather, setFetchedWeather] = useState([])
 
     useEffect(() => {
-        GetWeather();
+        GetWeather( city );
     }, [])
 
     const GetWeather = async () => {
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=edmonton&appid=750f844a271e6a0e4d5caf0107a40189`
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${ city }&appid=750f844a271e6a0e4d5caf0107a40189`
         const response = await fetch(url);
         const data = await response.json()
         // console.log({data})
