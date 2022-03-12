@@ -1,45 +1,50 @@
 import React, { useEffect, useState } from "react";
 import { GetWeatherItem } from "../components/CityWeatherItem";
+import { CityMainItem } from '../components/CityMainItem';
 
 export const GetWeatherCity = ({ city }) => {
 
     const [fetchedWeather, setFetchedWeather] = useState([])
 
+    const [fetchedMain, setFetchedMain] = useState([])
+
     useEffect(() => {
-        GetWeather( city );
+        GetWeather(city);
     }, [])
 
     const GetWeather = async () => {
 
-        const url = `https://api.openweathermap.org/data/2.5/weather?q=${ city }&appid=750f844a271e6a0e4d5caf0107a40189`
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=750f844a271e6a0e4d5caf0107a40189`
         const response = await fetch(url);
         const data = await response.json()
-        // console.log({data})
+        console.log({data})
 
-        const {main} = data;
-        console.log({main});
+        const arrayValues = Object.keys(data.main).map((key)=> [(key), data.main[key]])
+        console.log( 'arrayValues', arrayValues)
 
-        const {weather} = data;
-        console.log({weather})
+        const { weather } = data;
+        console.log({ weather })
 
-        const weatherInfo = weather.map(({id, description, icon, main}) => {
+        const weatherInfo = weather.map(({id, description, main})=>{
             return {
                 id: id,
-                description: description,
-                icon: icon,
-                main: main
+                main: main,
+                description: description
             }
         })
-        console.log('weatherInfo', weatherInfo)
 
-        const { temp, humidity, feelsLike, grnd_level} = main
+        const renderedMain = [arrayValues[0], arrayValues[1], arrayValues[4], arrayValues[5]]
 
-        console.log({ temp, feelsLike, humidity, grnd_level})
+        console.log('renderedMain', renderedMain)
 
-        setFetchedWeather( weatherInfo )
+        setFetchedWeather(weatherInfo)
 
-        console.log('fetchedWeather', fetchedWeather )
+        setFetchedMain( renderedMain)
     }
+
+    const id = Math.floor( Math.random()*500+1)
+
+    console.log('random id', id)
 
     return (
         <div>
@@ -47,11 +52,30 @@ export const GetWeatherCity = ({ city }) => {
             <ol>
                 {fetchedWeather.map(item => {
                     return (
-                        <GetWeatherItem 
-                        key={ item.id} 
-                        { ...item } />
+                        <ul  key={ id }>
+                            <li>
+                                {fetchedWeather.map( item =>{
+                                    return (
+                                        <h3 key={ id }>
+                                            <GetWeatherItem 
+                                            { ...item }
+                                            />
+                                        </h3>
+                                    )
+                                })}
+                            </li>
+                        </ul>
                     )
                 })}
+            </ol>
+            <ol>
+            {fetchedMain.map( info =>{
+                return (
+                    <h3>
+                        { info }
+                    </h3>
+                )
+            })}
             </ol>
         </div>
     )
