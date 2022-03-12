@@ -2,20 +2,13 @@ import React from "react";
 import { Card } from 'react-bootstrap'
 // import 'bootstrap/dist/css/bootstrap.min.css';
 
-export const GetWeatherItem = ({ city, description }) => {
+export const GetWeatherItem = ({ description, main }) => {
 
-    console.log({ description, city})
+    console.log({ description, main })
     return (
         <div>
-            <Card style={{ border: 'solid 1px black', margin: '25px', width: '18rem' }}>
-                {/* <Card.Img variant="top" src="holder.js/100px180" /> */}
-                <Card.Body>
-                    <Card.Title>{city}</Card.Title>
-                    <Card.Text >
-                        {description}
-                    </Card.Text>
-                </Card.Body>
-            </Card>
+            <h3> { main } </h3>
+            <h3> { description } </h3>
         </div>
     )
 
