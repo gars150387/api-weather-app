@@ -34,6 +34,10 @@ export const GetWeatherCity = ({ city }) => {
         })
 
         const renderedMain = [arrayValues[0], arrayValues[1], arrayValues[4], arrayValues[5]]
+        console.log('values',arrayValues)
+
+        console.log( arrayValues[1])
+
 
         console.log('renderedMain', renderedMain)
 
@@ -56,9 +60,9 @@ export const GetWeatherCity = ({ city }) => {
                             <li>
                                 {fetchedWeather.map( item =>{
                                     return (
-                                        <h3 key={ id }>
+                                        <h3 key={ item }>
                                             <GetWeatherItem 
-                                            { ...item }
+                                           item={ item.value }
                                             />
                                         </h3>
                                     )
@@ -72,7 +76,7 @@ export const GetWeatherCity = ({ city }) => {
             {fetchedMain.map( info =>{
                 return (
                     <h3>
-                        { info }
+                        {info[0]} : {info[1]}
                     </h3>
                 )
             })}
