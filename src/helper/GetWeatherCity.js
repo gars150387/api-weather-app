@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { GetWeatherItem } from "../components/CityWeatherItem";
-import { CityMainItem } from '../components/CityMainItem';
 
 export const GetWeatherCity = ({ city }) => {
 
@@ -17,15 +16,12 @@ export const GetWeatherCity = ({ city }) => {
         const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=750f844a271e6a0e4d5caf0107a40189&units=metric`
         const response = await fetch(url);
         const data = await response.json()
-        console.log({data})
 
-        const arrayValues = Object.keys(data.main).map((key)=> [(key), data.main[key]])
-        console.log( 'arrayValues', arrayValues)
+        const arrayValues = Object.keys(data.main).map((key) => [(key), data.main[key]])
 
         const { weather } = data;
-        console.log({ weather })
 
-        const weatherInfo = weather.map(({id, description, main})=>{
+        const weatherInfo = weather.map(({ id, description, main }) => {
             return {
                 id: id,
                 main: main,
@@ -34,52 +30,36 @@ export const GetWeatherCity = ({ city }) => {
         })
 
         const renderedMain = [arrayValues[0], arrayValues[1], arrayValues[4], arrayValues[5]]
-        console.log('values',arrayValues)
-
-        console.log( arrayValues[1])
-
-
-        console.log('renderedMain', renderedMain)
 
         setFetchedWeather(weatherInfo)
 
-        setFetchedMain( renderedMain)
+        setFetchedMain(renderedMain)
     }
 
-    const id = Math.floor( Math.random()*500+1)
-
-    console.log('random id', id)
+    const id = Math.floor(Math.random() * 500 + 1)
 
     return (
-        <div>
-            <h4>{city}</h4>
+        <div id="bodyAppDetail">
+            <h1 className="titleCity">{city}</h1>
+            <small className="expression">***Expression in Celsius***</small>
             <ol>
-                {fetchedWeather.map(item => {
+                {fetchedMain.map(info => {
                     return (
-                        <ul  key={ id }>
-                            <li>
-                                {fetchedWeather.map( item =>{
-                                    return (
-                                        <h3 key={ item }>
-                                            <GetWeatherItem 
-                                           item={ item.value }
-                                            />
-                                        </h3>
-                                    )
-                                })}
-                            </li>
-                        </ul>
+                        <h3>
+                            {info[0]}: {info[1]} 
+                        </h3>
                     )
                 })}
             </ol>
             <ol>
-            {fetchedMain.map( info =>{
-                return (
-                    <h3>
-                        {info[0]} : {info[1]}
-                    </h3>
-                )
-            })}
+                {fetchedWeather.map(({ main, description }) => {
+                    return (
+                        <div>
+                            <h3> main: {main} </h3>
+                            <h3> description:{description} </h3>
+                        </div>
+                    )
+                })}
             </ol>
         </div>
     )
