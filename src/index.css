@@ -52,5 +52,12 @@ body{
  }
 
  #bodyAppDetail{
-   height: 330px;
+   height: 370px;
+ }
+
+ .expression{
+   margin-left: 38px;
+   font-size: 10px;
+   font-weight: 1000;
+   font-family: 'Courier New', Courier, monospace;
  }
