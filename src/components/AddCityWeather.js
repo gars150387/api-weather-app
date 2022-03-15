@@ -17,9 +17,9 @@ export const AddCityWeather = ({ setCities }) =>{
     }
 
     return(
-        <div>
-            <input onChange={ handleValue } />
-            <button onClick={ handleSubmit }><h3>Search</h3></button>
+        <div id="inputComponent">
+            <input className="input" onChange={ handleValue } placeholder='Search your city' />
+            <button className="button" onClick={ handleSubmit }><small>Search</small></button>
         </div>
     )
 }
