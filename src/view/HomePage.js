@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { GetWeather } from '../components/GetWeather'
+import {  AddCityWeather } from '../components/AddCityWeather'
+import { GetWeatherCity  } from '../helper/GetWeatherCity'
 
 export const HomePage = () =>{
 
@@ -9,26 +10,20 @@ export const HomePage = () =>{
     //link to fetch: https://api.openweathermap.org/data/2.5/weather?appid=750f844a271e6a0e4d5caf0107a40189&q=miami
 
     return (
-        <>
-            <h1>Weather App</h1>
+        <div id='bodyApp'>
+            <h1 className='AppTitle'>Weather App</h1>
             <br/>
 
-            { cities }
-
-            <br/>
-
-            <GetWeather setCities={ setCities } />
-
+            {/* <h1>{ cities }</h1> */}
+            <AddCityWeather setCities={ setCities } />
             <br/>
 
             {cities.map( city =>{
                 return (
-                    <ol key={city}>
-                        {city}
-                    </ol>
+                    <GetWeatherCity city={ city } key={ city } />
                 )
             })}
-        </>
+        </div>
         
     )
 }
